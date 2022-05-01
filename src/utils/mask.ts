@@ -10,4 +10,4 @@ export function priceMask(value: any) {
   }
 
   return value;
-} 
+}
