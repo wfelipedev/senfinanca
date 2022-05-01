@@ -7,7 +7,6 @@ import {
   ListItem,
 } from '@mui/material';
 import * as S from '../../styles/drawer';
-import { useAuth } from '../../context/useAuth';
 import Menus from './menus';
 import { BarChart2, LogOut } from 'react-feather';
 import DialogSignout from '../Dialogs/Signout';
@@ -19,8 +18,6 @@ interface DrawerProps {
 
 export default function DrawerCustom({ children }: DrawerProps) {
   const routeSelected = window.location.toString().split('/').slice(-1)[0];
-
-  const { signOut } = useAuth();
 
   const [isVisible, setIsVisible] = useState<boolean>(false);
 

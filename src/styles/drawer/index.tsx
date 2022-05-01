@@ -47,10 +47,16 @@ export const DrawerCustom = styled(Drawer)<SelectedProps>`
   padding: '1rem';
 
   .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    border-right: 0;
+    width: 220px;
+    background: #eaae0a;
+    /* background: #fbfcfe; */
+  }
+
+  .css-1l8j5k8 {
     width: 220px;
     border-right: 0;
     background: #eaae0a;
-    /* background: #fbfcfe; */
   }
 
   .listItem {
