@@ -5,7 +5,7 @@ import DrawerCustom from '../../components/Drawer';
 import * as S from '../../styles/transactions';
 import { api } from '../../services/api';
 import DialogTransaction from '../../components/Dialogs/Transactions';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ISEOProps, ITransaction } from '../../interfaces';
 import TransactionTable from '../../components/Transactions/Table';
@@ -151,6 +151,7 @@ export default function Transactions({ title }: ISEOProps) {
 
   return (
     <>
+      <ToastContainer />
       <DrawerCustom>
         <S.Main>
           <Greetings subtitle="Suas Transações" />

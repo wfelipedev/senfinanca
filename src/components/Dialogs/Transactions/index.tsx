@@ -53,6 +53,16 @@ export default function DialogTransaction({
 
   const handleSaveTransaction = useCallback(
     async (fields: any) => {
+      if (
+        fields.title === undefined ||
+        fields.title === '' ||
+        fields.category === undefined ||
+        fields.category === '' ||
+        fields.type === undefined ||
+        fields.type === ''
+      )
+        return error('É necessário preencher todos os campos!');
+
       setLoading(true);
 
       const value: number = fields.value.replace('.', '').replace(',', '');
@@ -65,14 +75,14 @@ export default function DialogTransaction({
 
       const { data } = await api.post('transaction', entity);
 
-      success(data.msg);
+      success(data.message);
       setLoading(false);
       form.resetFields();
       setTransactionType('deposit');
       closeModal();
       fetchTransactions();
     },
-    [closeModal, fetchTransactions, form, success, transactionType],
+    [closeModal, error, fetchTransactions, form, success, transactionType],
   );
 
   const handleUpdateTransaction = useCallback(
@@ -89,7 +99,7 @@ export default function DialogTransaction({
         entity,
       );
 
-      success(data.msg);
+      success(data.message);
       setLoading(false);
       form.resetFields();
       setTransactionType('deposit');
@@ -109,7 +119,7 @@ export default function DialogTransaction({
   const handleDeleteTransaction = useCallback(async () => {
     const { data } = await api.delete(`/transaction/${transaction?._id}`);
 
-    success(data.msg);
+    success(data.message);
     form.resetFields();
     closeModal();
     fetchTransactions();
@@ -215,6 +225,7 @@ export default function DialogTransaction({
                   variant="filled"
                   fullWidth
                   size="small"
+                  value={categories[0]}
                 >
                   {categories.map((item) => (
                     <MenuItem key={item} value={item}>
