@@ -30,12 +30,25 @@ export default function SignUp() {
     });
   };
 
+  const success = (msg: string) => {
+    toast.success(msg, {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
+  };
+
   const handleSignup = useCallback(
     async (fields: any) => {
       setLoading(true);
       try {
-        await api.post('auth/signup', fields);
+        const { data } = await api.post('auth/signup', fields);
 
+        success(data.message);
         navigate('/');
       } catch (err: any) {
         error(checkIfErrorIsProvidedFromDtoOrArray(err));
