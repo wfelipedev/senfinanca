@@ -41,7 +41,7 @@ export default function DrawerCustom({ children }: DrawerProps) {
           <S.Logo>
             <S.Row>
               <BarChart2 color="#333" />
-              <h1 style={{ color: '#333' }}>senfinance</h1>
+              <h1>senfinance</h1>
             </S.Row>
           </S.Logo>
           <List>
@@ -57,7 +57,7 @@ export default function DrawerCustom({ children }: DrawerProps) {
           </List>
         </S.DrawerCustom>
 
-        <main style={{ backgroundColor: '#f6f7fb' }}>{children}</main>
+        <main>{children}</main>
       </S.Root>
 
       <DialogSignout isVisible={isVisible} closeModal={closeModal} />

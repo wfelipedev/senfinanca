@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable array-callback-return */
+import { useEffect, useRef, useState } from 'react';
 import DrawerCustom from '../../components/Drawer';
 import * as S from '../../styles/transactions';
 import { api } from '../../services/api';
@@ -6,10 +8,12 @@ import DialogTransaction from '../../components/Dialogs/Transactions';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ISEOProps, ITransaction } from '../../interfaces';
-import TransactionTable from '../../components/Transactions';
-import { MenuItem } from '@mui/material';
+import TransactionTable from '../../components/Transactions/Table';
+import { CircularProgress, MenuItem } from '@mui/material';
 import Empty from '../../images/empty.svg';
 import Greetings from '../../components/Header';
+import PartialBalance from '../../components/Transactions/PartialBalance';
+import { checkIfErrorIsProvidedFromDtoOrArray } from '../../utils/checkError';
 
 const categories = [
   'Todas as Categorias',
@@ -37,6 +41,13 @@ export default function Transactions({ title }: ISEOProps) {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState('');
+  const [partialBalance, setPartialBalance] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const [deposit, setDeposit] = useState<number>(0);
+  const [withdraw, setWithdraw] = useState<number>(0);
+  var depositRef = useRef<number>(deposit);
+  var withdrawRef = useRef<number>(withdraw);
 
   const success = (msg: string) => {
     toast.success(msg, {
@@ -89,13 +100,49 @@ export default function Transactions({ title }: ISEOProps) {
   };
 
   const handleSearch = async () => {
-    const { data } = await api.post('transaction/filter', {
-      search,
-      category,
-      type,
-    });
+    setIsLoading(true);
+    try {
+      const { data } = await api.post('transaction/filter', {
+        search,
+        category,
+        type,
+      });
 
-    setTransactions(data);
+      getDepositAndWithdrawRefs(data);
+
+      if (search === '' && category === '' && type === '')
+        setPartialBalance(false);
+      else if (search !== '' || category !== '' || type !== '') {
+        setPartialBalance(true);
+      }
+
+      setTransactions(data);
+    } catch (err: any) {
+      error(checkIfErrorIsProvidedFromDtoOrArray(err));
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getDepositAndWithdrawRefs = (transactions: ITransaction[]) => {
+    depositRef.current = 0;
+    withdrawRef.current = 0;
+
+    if (transactions.length === 0) {
+      setDeposit(depositRef.current);
+      setWithdraw(withdrawRef.current);
+    }
+
+    transactions.map((transaction) => {
+      if (transaction.type === 'deposit') {
+        depositRef.current += transaction.value;
+      } else {
+        withdrawRef.current += transaction.value;
+      }
+
+      setDeposit(depositRef.current);
+      setWithdraw(withdrawRef.current);
+    });
   };
 
   useEffect(() => {
@@ -162,11 +209,22 @@ export default function Transactions({ title }: ISEOProps) {
                 </MenuItem>
               ))}
             </S.SearchfieldCustom>
-            <S.SearchButton onClick={handleSearch}>Buscar</S.SearchButton>
+            <S.SearchButton
+              loading={isLoading}
+              loadingIndicator={
+                <CircularProgress className="progress" size={16} />
+              }
+              onClick={handleSearch}
+            >
+              Buscar
+            </S.SearchButton>
             <S.AddButton onClick={() => openModalCreate(selectedTransaction)}>
               Novo
             </S.AddButton>
           </S.SearchBox>
+          {partialBalance && (
+            <PartialBalance deposit={deposit} withdraw={withdraw} />
+          )}
           {transactions.length > 0 ? (
             <TransactionTable
               transactions={transactions}

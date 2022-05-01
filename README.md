@@ -1,46 +1,69 @@
-# Getting Started with Create React App
+## **Descrição**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicação de controle financeiro pessoal
 
-## Available Scripts
+</br>
 
-In the project directory, you can run:
+## **SenFinança**
 
-### `yarn start`
+</br>
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### **Fluxo:**
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Cadastrar conta (informando nome, email e senha)
+2. Realizar login (informando email e senha)
+3. Selecionar menu Transações
 
-### `yarn test`
+### **Filtros:**
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Filtro por nome;
+- Filtro por categoria;
+- Filtro por tipo;
+- Filtro por combinações dos filtros anteriores;
 
-### `yarn build`
+</br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## **Tecnologias usadas:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- ### **Frontend:** ReactJs, Hooks, Context API;
+- ### **Processadores Css:** Styled Components;
+- ### **Requisições:** Rest API;
+- ### TypeScript;
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+</br>
 
-### `yarn eject`
+<!-- ## Items
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Obrigatórios
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+[✔] Adicionar, editar e excluir uma transação;</br>
+[✔] Visualizar as transações em uma tabela;</br>
+[✔] Visualizar o total das transações de entrada, saída e o total da
+conta (entradas - saídas);</br>
+[✔] Os filtros citados devem estar funcionando;</br>
+[✔] Persistir os dados (salvar a lista de transações no localStorage ou
+algum banco de dados);</br>
+[✔] Usar ContextAPI;</br>
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Bônus
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+[ ] Realizar testes unitários;</br>
+[✔] Mais filtros;</br>
+[✔] Mostrar subtotal de entradas / saídas de acordo com o filtro de categoria.</br> -->
 
-## Learn More
+## **Instalação**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```bash
+$ yarn - Instalar dependências
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## **Rodando o projeto**
+
+```bash
+$ yarn start
+```
+
+## **Contato**
+
+- E-mail - dev.felpz@gmail.com
+- Linkedin - [Link](https://www.linkedin.com/in/felipe-freire/)

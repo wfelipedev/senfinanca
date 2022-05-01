@@ -16,7 +16,6 @@ import { api } from '../../../services/api';
 import { ArrowDownCircle, ArrowUpCircle } from 'react-feather';
 import { ITransaction } from '../../../interfaces';
 import { priceMask, priceMaskNumber } from '../../../utils/mask';
-import { rules } from './rules';
 
 interface DialogProps {
   transaction?: ITransaction;
@@ -76,15 +75,6 @@ export default function DialogTransaction({
     [closeModal, fetchTransactions, form, success, transactionType],
   );
 
-  const handleDeleteTransaction = useCallback(async () => {
-    const { data } = await api.delete(`/transaction/${transaction?._id}`);
-
-    success(data.msg);
-    form.resetFields();
-    closeModal();
-    fetchTransactions();
-  }, [closeModal, fetchTransactions, form, success, transaction?._id]);
-
   const handleUpdateTransaction = useCallback(
     async (fields: any) => {
       setLoading(true);
@@ -116,6 +106,15 @@ export default function DialogTransaction({
     ],
   );
 
+  const handleDeleteTransaction = useCallback(async () => {
+    const { data } = await api.delete(`/transaction/${transaction?._id}`);
+
+    success(data.msg);
+    form.resetFields();
+    closeModal();
+    fetchTransactions();
+  }, [closeModal, fetchTransactions, form, success, transaction?._id]);
+
   useEffect(() => {
     if (transaction) {
       form.setFieldsValue({
@@ -139,13 +138,13 @@ export default function DialogTransaction({
         }
       >
         <DialogTitle>
-          {transaction?.title ? 'Editar ' : 'Novo'} Transações
+          {transaction?.title ? 'Editar ' : 'Nova'} Transação
         </DialogTitle>
         <DialogContent>
           <DialogContentText>Informações da Transação</DialogContentText>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Form.Item name="title" rules={rules.title}>
+              <Form.Item name="title">
                 <S.TextFieldCustom
                   margin="dense"
                   id="title-id"
@@ -158,7 +157,7 @@ export default function DialogTransaction({
               </Form.Item>
             </Grid>
             <Grid item xs={12}>
-              <Form.Item name="value" rules={rules.value}>
+              <Form.Item name="value">
                 <S.TextFieldCustom
                   margin="dense"
                   id="type-id"
@@ -206,7 +205,7 @@ export default function DialogTransaction({
               </S.TypeButtom>
             </Grid>
             <Grid item xs={12}>
-              <Form.Item name="category" rules={rules.category}>
+              <Form.Item name="category">
                 <S.TextFieldCustom
                   id="outlined-select-currency"
                   select
@@ -238,7 +237,7 @@ export default function DialogTransaction({
               </S.CustomDeleteLoadingButton>
             )}
 
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <S.Row>
               <S.CustomCancelLoadingButton
                 className="cancel"
                 onClick={closeModal}
@@ -252,13 +251,13 @@ export default function DialogTransaction({
                   type="submit"
                   loading={loading}
                   loadingIndicator={
-                    <CircularProgress style={{ color: '#fff' }} size={16} />
+                    <CircularProgress className="progress" size={16} />
                   }
                 >
                   {transaction?.title ? 'Editar' : 'Cadastrar'}
                 </S.CustomLoadingButton>
               </Form.Item>
-            </div>
+            </S.Row>
           </S.ActionButtons>
         </DialogActions>
       </Form>

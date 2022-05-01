@@ -10,6 +10,7 @@ import { BarChart2 } from 'react-feather';
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { rules } from '../../utils/rules/Signin';
 import { checkIfErrorIsProvidedFromDtoOrArray } from '../../utils/checkError';
 
 export default function SignIn() {
@@ -50,7 +51,7 @@ export default function SignIn() {
       <S.Banner>
         <S.Row>
           <BarChart2 color="#fff" />
-          <h1 style={{ color: '#fff' }}>senfinance</h1>
+          <h1>senfinance</h1>
         </S.Row>
       </S.Banner>
       <S.Content>
@@ -62,7 +63,7 @@ export default function SignIn() {
             alignItems="center"
           >
             <Form form={form} layout="vertical" onFinish={handleSignin}>
-              <Form.Item name="email">
+              <Form.Item name="email" rules={rules.email}>
                 <S.CustomTextField
                   id="textfield-username"
                   margin="dense"
@@ -71,7 +72,7 @@ export default function SignIn() {
                   fullWidth
                 />
               </Form.Item>
-              <Form.Item name="password">
+              <Form.Item name="password" rules={rules.password}>
                 <S.CustomTextField
                   id="textfield-password"
                   margin="dense"
@@ -86,7 +87,7 @@ export default function SignIn() {
                   loading={loading}
                   type="submit"
                   loadingIndicator={
-                    <CircularProgress style={{ color: '#fff' }} size={16} />
+                    <CircularProgress className="progress" size={16} />
                   }
                 >
                   Entrar

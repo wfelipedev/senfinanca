@@ -41,6 +41,10 @@ export const Row = styled('div')`
   align-items: center;
 
   margin-left: 1.5rem;
+
+  h1 {
+    color: #fff;
+  }
 `;
 
 export const CustomTextField = styled(TextField)`
@@ -157,6 +161,10 @@ export const CustomLoadingButton = styled(LoadingButton)`
   border-radius: 0;
   margin: 1.5rem 0;
   text-transform: none;
+
+  .progress {
+    color: #fff;
+  }
 
   &:hover {
     cursor: pointer;

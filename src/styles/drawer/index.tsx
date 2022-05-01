@@ -4,6 +4,10 @@ import { transparentize } from 'polished';
 
 export const Root = styled('div')`
   display: flex;
+
+  main {
+    background: #f6f7fb;
+  }
 `;
 
 export const Logo = styled('div')`
@@ -36,6 +40,10 @@ export const Row = styled('div')`
 
   align-items: center;
   font-size: 0.8rem;
+
+  h1 {
+    color: #333;
+  }
 `;
 
 interface SelectedProps {
@@ -58,7 +66,7 @@ export const DrawerCustom = styled(Drawer)<SelectedProps>`
   .css-1l8j5k8 {
     width: 220px;
     border-right: 0;
-    background: #eaae0a;
+    background: #fbfcfe;
   }
 
   .listItem {

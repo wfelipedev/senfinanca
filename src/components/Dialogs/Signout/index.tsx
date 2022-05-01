@@ -21,7 +21,7 @@ export default function DialogSignout({ isVisible, closeModal }: DialogProps) {
       </DialogContent>
       <DialogActions>
         <S.ActionButtons isEdit={false}>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <S.Row>
             <S.CustomCancelLoadingButton
               className="cancel"
               onClick={closeModal}
@@ -32,7 +32,7 @@ export default function DialogSignout({ isVisible, closeModal }: DialogProps) {
             <S.CustomLoadingButton className="save" onClick={signOut}>
               Sim
             </S.CustomLoadingButton>
-          </div>
+          </S.Row>
         </S.ActionButtons>
       </DialogActions>
     </Dialog>

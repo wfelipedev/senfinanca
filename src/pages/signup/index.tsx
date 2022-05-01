@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useCallback, useState } from 'react';
 import { Form } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { BarChart2 } from 'react-feather';
 import { CircularProgress } from '@mui/material';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { rules } from '../../utils/rules/Signup';
 import { checkIfErrorIsProvidedFromDtoOrArray } from '../../utils/checkError';
 
 export default function SignUp() {
@@ -51,7 +53,7 @@ export default function SignUp() {
         <S.Banner>
           <S.Row>
             <BarChart2 color="#fff" />
-            <h1 style={{ color: '#fff' }}>senfinance</h1>
+            <h1>senfinance</h1>
           </S.Row>
         </S.Banner>
         <S.Content>
@@ -64,7 +66,7 @@ export default function SignUp() {
             >
               <Form form={form} layout="vertical" onFinish={handleSignup}>
                 <S.Title>Criando sua conta</S.Title>
-                <Form.Item name="name">
+                <Form.Item name="name" rules={rules.name}>
                   <S.TextFieldCustom
                     id="textfield-name"
                     margin="dense"
@@ -73,7 +75,7 @@ export default function SignUp() {
                     fullWidth
                   />
                 </Form.Item>
-                <Form.Item name="email">
+                <Form.Item name="email" rules={rules.email}>
                   <S.TextFieldCustom
                     id="textfield-email"
                     margin="dense"
@@ -82,7 +84,7 @@ export default function SignUp() {
                     fullWidth
                   />
                 </Form.Item>
-                <Form.Item name="password">
+                <Form.Item name="password" rules={rules.password}>
                   <S.TextFieldCustom
                     id="textfield-password"
                     margin="dense"
@@ -97,7 +99,7 @@ export default function SignUp() {
                     loading={loading}
                     type="submit"
                     loadingIndicator={
-                      <CircularProgress style={{ color: '#fff' }} size={16} />
+                      <CircularProgress className="progress" size={16} />
                     }
                   >
                     Cadastrar-se
@@ -105,6 +107,17 @@ export default function SignUp() {
                 </Form.Item>
               </Form>
             </S.CustomGrid>
+            <section>
+              <a onClick={() => navigate('/')}>
+                <h3
+                  style={{
+                    color: '#333',
+                  }}
+                >
+                  Voltar para Sign in
+                </h3>
+              </a>
+            </section>
           </div>
         </S.Content>
       </S.Layout>

@@ -108,22 +108,29 @@ export const TextFieldCustom = styled(TextField)`
   }
 `;
 
-export const SearchButton = styled('div')`
+export const SearchButton = styled(LoadingButton)`
   height: 3rem;
   width: 10%;
   background: #333;
   color: #fff;
   font-size: 0.8rem;
   border-left: solid 0.2rem;
+  border-radius: 0;
   padding: 1rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  user-select: none;
+
+  .progress {
+    color: #fff;
+  }
+
   &:hover {
     cursor: pointer;
-    opacity: 0.9;
+    background: ${transparentize(0.1, '#333')};
   }
 `;
 
@@ -140,6 +147,8 @@ export const AddButton = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  user-select: none;
 
   &:hover {
     cursor: pointer;
@@ -244,6 +253,10 @@ export const CustomLoadingButton = styled(LoadingButton)`
   border: none;
   border-radius: 0;
   margin: 1.5rem 0;
+
+  .progress {
+    color: #fff;
+  }
 
   &:hover {
     cursor: pointer;

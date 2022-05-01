@@ -12,10 +12,11 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { ITransaction } from '../../interfaces';
-import * as S from '../../styles/transactions';
+import { ITransaction } from '../../../interfaces';
+import * as S from '../../../styles/transactions';
 import { ArrowDownCircle, ArrowUpCircle, Eye } from 'react-feather';
 import { format } from 'date-fns';
+import { priceMaskNumber } from '../../../utils/mask';
 
 interface ITableProps {
   transactions: ITransaction[];
@@ -84,7 +85,7 @@ export default function TransactionTable({
                           color="#33cc95"
                         />
                         R$
-                        {(transaction.value / 100).toFixed(2).replace('.', ',')}
+                        {priceMaskNumber(transaction.value)}
                       </S.Row>
                     ) : (
                       <S.Row>
@@ -94,7 +95,7 @@ export default function TransactionTable({
                           color="#e52e4d"
                         />
                         R$
-                        {(transaction.value / 100).toFixed(2).replace('.', ',')}
+                        {priceMaskNumber(transaction.value)}
                       </S.Row>
                     )}
                   </StyledTableCell>
@@ -104,7 +105,7 @@ export default function TransactionTable({
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <S.EyeButton onClick={() => openModalCreate(transaction)}>
-                      <Eye className='icon'/>
+                      <Eye className="icon" />
                     </S.EyeButton>
                   </StyledTableCell>
                 </S.CustomTableRow>
