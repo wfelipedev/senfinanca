@@ -56,7 +56,7 @@ export default function DialogTransaction({
     async (fields: any) => {
       setLoading(true);
       try {
-        let title;
+        let title = fields.title;
         if (fields.title === '' || fields.title === undefined)
           title = 'Sem Título';
 
