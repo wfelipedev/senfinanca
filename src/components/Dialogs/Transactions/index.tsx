@@ -16,6 +16,7 @@ import { api } from '../../../services/api';
 import { ArrowDownCircle, ArrowUpCircle } from 'react-feather';
 import { ITransaction } from '../../../interfaces';
 import { priceMask, priceMaskNumber } from '../../../utils/mask';
+import { checkIfErrorIsProvidedFromDtoOrArray } from '../../../utils/checkError';
 
 interface DialogProps {
   transaction?: ITransaction;
@@ -53,34 +54,33 @@ export default function DialogTransaction({
 
   const handleSaveTransaction = useCallback(
     async (fields: any) => {
-      if (
-        fields.title === undefined ||
-        fields.title === '' ||
-        fields.category === undefined ||
-        fields.category === '' ||
-        fields.type === undefined ||
-        fields.type === ''
-      )
-        return error('É necessário preencher todos os campos!');
-
       setLoading(true);
+      try {
+        let title;
+        if (fields.title === '' || fields.title === undefined)
+          title = 'Sem Título';
 
-      const value: number = fields.value.replace('.', '').replace(',', '');
+        const value: number = fields.value.replace('.', '').replace(',', '');
 
-      const entity = {
-        ...fields,
-        value,
-        type: transactionType,
-      };
+        const entity = {
+          ...fields,
+          title,
+          value,
+          type: transactionType,
+        };
 
-      const { data } = await api.post('transaction', entity);
+        const { data } = await api.post('transaction', entity);
 
-      success(data.message);
-      setLoading(false);
-      form.resetFields();
-      setTransactionType('deposit');
-      closeModal();
-      fetchTransactions();
+        success(data.message);
+        form.resetFields();
+        setTransactionType('deposit');
+        closeModal();
+        fetchTransactions();
+      } catch (err: any) {
+        error(checkIfErrorIsProvidedFromDtoOrArray(err));
+      } finally {
+        setLoading(false);
+      }
     },
     [closeModal, error, fetchTransactions, form, success, transactionType],
   );
