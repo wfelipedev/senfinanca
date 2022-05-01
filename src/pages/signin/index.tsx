@@ -8,6 +8,7 @@ import * as S from '../../styles/signin';
 import { useAuth } from '../../context/useAuth';
 import { BarChart2 } from 'react-feather';
 import { CircularProgress } from '@mui/material';
+import Background from '../../images/bg.jpg';
 
 export default function SignIn() {
   const [form] = Form.useForm();

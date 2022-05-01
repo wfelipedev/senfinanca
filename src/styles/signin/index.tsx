@@ -3,6 +3,7 @@ import { Input as AntdInput } from 'antd';
 import { AppBar, Grid, TextField } from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 import { transparentize } from 'polished';
+import img from '../../images/bg.jpg';
 
 export const Layout = styled('div')`
   display: flex;
@@ -19,7 +20,7 @@ export const Banner = styled('div')`
   flex: 2;
   height: 100vh;
 
-  background: url('src/images/bg.jpg') no-repeat center center;
+  background: url(${img}) no-repeat center center;
   background-size: cover;
 
   display: flex;
