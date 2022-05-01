@@ -1,4 +1,3 @@
-import { useCallback, useState, useEffect } from 'react';
 import * as S from '../../../styles/transactions';
 import { Dialog, DialogActions, DialogContent, Grid } from '@mui/material';
 import { useAuth } from '../../../context/useAuth';

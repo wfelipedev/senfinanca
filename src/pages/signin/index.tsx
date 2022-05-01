@@ -8,7 +8,9 @@ import * as S from '../../styles/signin';
 import { useAuth } from '../../context/useAuth';
 import { BarChart2 } from 'react-feather';
 import { CircularProgress } from '@mui/material';
-import Background from '../../images/bg.jpg';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.min.css';
+import { checkIfErrorIsProvidedFromDtoOrArray } from '../../utils/checkError';
 
 export default function SignIn() {
   const [form] = Form.useForm();
@@ -16,12 +18,29 @@ export default function SignIn() {
   const [loading, setLoading] = useState<boolean>(false);
   const { signIn } = useAuth();
 
+  const error = (msg: string) => {
+    toast.error(msg, {
+      position: 'bottom-center',
+      autoClose: 5000,
+      hideProgressBar: true,
+      closeOnClick: false,
+      pauseOnHover: false,
+      draggable: false,
+      progress: undefined,
+    });
+  };
+
   const handleSignin = useCallback(
     async (fields: any) => {
       setLoading(true);
-      await signIn(fields);
-      setLoading(false);
-      form.resetFields();
+      try {
+        await signIn(fields);
+        form.resetFields();
+      } catch (err: any) {
+        error(checkIfErrorIsProvidedFromDtoOrArray(err));
+      } finally {
+        setLoading(false);
+      }
     },
     [form],
   );

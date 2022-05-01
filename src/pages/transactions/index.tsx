@@ -62,7 +62,7 @@ export default function Transactions({ title }: ISEOProps) {
     });
   };
 
-  const fetchTransactions = async () => {
+  const fetchMyTransactions = async () => {
     const { data } = await api.get('transaction/my-transactions');
 
     setTransactions(data);
@@ -73,7 +73,7 @@ export default function Transactions({ title }: ISEOProps) {
     if (transaction) {
       setSelectedTransaction(transaction);
     }
-    fetchTransactions();
+    fetchMyTransactions();
   };
 
   const closeModal = () => {
@@ -99,7 +99,7 @@ export default function Transactions({ title }: ISEOProps) {
   };
 
   useEffect(() => {
-    fetchTransactions();
+    fetchMyTransactions();
   }, []);
 
   return (
@@ -174,7 +174,7 @@ export default function Transactions({ title }: ISEOProps) {
             />
           ) : (
             <S.Empty>
-              <img src={Empty} />
+              <img src={Empty} alt="empty" />
               <div className="subtitle">Nenhuma Transação encontrada. 🙁</div>
             </S.Empty>
           )}
@@ -185,7 +185,7 @@ export default function Transactions({ title }: ISEOProps) {
         isVisible={isCreateModalVisible}
         closeModal={closeModal}
         transaction={selectedTransaction}
-        fetchTransactions={fetchTransactions}
+        fetchTransactions={fetchMyTransactions}
         success={success}
         error={error}
       />

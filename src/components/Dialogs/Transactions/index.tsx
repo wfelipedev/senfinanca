@@ -8,13 +8,15 @@ import {
   DialogContentText,
   DialogTitle,
   Grid,
+  InputAdornment,
   MenuItem,
 } from '@mui/material';
 import { Form } from 'antd';
 import { api } from '../../../services/api';
 import { ArrowDownCircle, ArrowUpCircle } from 'react-feather';
 import { ITransaction } from '../../../interfaces';
-import { priceMask } from '../../../utils/mask';
+import { priceMask, priceMaskNumber } from '../../../utils/mask';
+import { rules } from './rules';
 
 interface DialogProps {
   transaction?: ITransaction;
@@ -119,7 +121,7 @@ export default function DialogTransaction({
       form.setFieldsValue({
         title: transaction.title,
         type: transaction.type,
-        value: transaction.value,
+        value: priceMaskNumber(transaction.value),
         category: transaction.category,
       });
       setTransactionType(transaction.type);
@@ -143,7 +145,7 @@ export default function DialogTransaction({
           <DialogContentText>Informações da Transação</DialogContentText>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Form.Item name="title">
+              <Form.Item name="title" rules={rules.title}>
                 <S.TextFieldCustom
                   margin="dense"
                   id="title-id"
@@ -156,7 +158,7 @@ export default function DialogTransaction({
               </Form.Item>
             </Grid>
             <Grid item xs={12}>
-              <Form.Item name="value">
+              <Form.Item name="value" rules={rules.value}>
                 <S.TextFieldCustom
                   margin="dense"
                   id="type-id"
@@ -169,6 +171,11 @@ export default function DialogTransaction({
                     form.setFieldsValue({ value: priceMask(value) });
                   }}
                   size="small"
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">R$</InputAdornment>
+                    ),
+                  }}
                 />
               </Form.Item>
             </Grid>
@@ -199,7 +206,7 @@ export default function DialogTransaction({
               </S.TypeButtom>
             </Grid>
             <Grid item xs={12}>
-              <Form.Item name="category">
+              <Form.Item name="category" rules={rules.category}>
                 <S.TextFieldCustom
                   id="outlined-select-currency"
                   select

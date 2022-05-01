@@ -100,12 +100,11 @@ export default function TransactionTable({
                   </StyledTableCell>
                   <StyledTableCell>{transaction.category}</StyledTableCell>
                   <StyledTableCell component="th" scope="row">
-                    {/* {format(transaction.createdAt, 'dd/MM/yyyy')} */}
                     {format(new Date(transaction.createdAt), 'dd/MM/yyyy')}
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     <S.EyeButton onClick={() => openModalCreate(transaction)}>
-                      <Eye />
+                      <Eye className='icon'/>
                     </S.EyeButton>
                   </StyledTableCell>
                 </S.CustomTableRow>

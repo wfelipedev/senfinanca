@@ -4,6 +4,7 @@ import SignUp from '../pages/signup';
 import ProtectedRoute from './protected-route';
 import Dashboard from '../pages/dashboard';
 import Transactions from '../pages/transactions';
+import NotFound from '../pages/notfound';
 
 export default function AppRoutes() {
   return (
@@ -27,6 +28,11 @@ export default function AppRoutes() {
               <Transactions title="Senfinance | Transações" />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+          path="*"
+          element={<NotFound title="Senfinance | 404 😕" />}
         />
       </Routes>
     </Router>

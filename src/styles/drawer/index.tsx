@@ -10,6 +10,7 @@ export const Logo = styled('div')`
   display: flex;
   align-items: 'center';
   margin: 1rem 0 4rem 1rem;
+  background-clip: 'text';
   -webkit-background-clip: 'text';
   -webkit-text-fill-color: 'transparent';
   user-select: none;
@@ -49,10 +50,11 @@ export const DrawerCustom = styled(Drawer)<SelectedProps>`
   .css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
     border-right: 0;
     width: 220px;
-    background: #eaae0a;
-    /* background: #fbfcfe; */
+    /* background: #eaae0a; */
+    background: #fbfcfe;
   }
 
+  // heroku styling
   .css-1l8j5k8 {
     width: 220px;
     border-right: 0;

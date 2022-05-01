@@ -43,8 +43,10 @@ export const CustomTableRow = styled(TableRow)`
 `;
 
 export const EyeButton = styled('div')`
-  &:hover {
-    cursor: pointer;
+  .icon {
+    &:hover {
+      cursor: pointer;
+    }
   }
 `;
 
@@ -111,7 +113,7 @@ export const SearchButton = styled('div')`
   width: 10%;
   background: #333;
   color: #fff;
-  font-size: .8rem;
+  font-size: 0.8rem;
   border-left: solid 0.2rem;
   padding: 1rem;
 
@@ -130,7 +132,7 @@ export const AddButton = styled('div')`
   width: 10%;
   background: #333;
   color: #fff;
-  font-size: .8rem;
+  font-size: 0.8rem;
   text-align: center;
   padding: 1rem;
   border-left: solid 0.2rem;

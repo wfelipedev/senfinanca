@@ -6,12 +6,13 @@ import { useEffect, useState } from 'react';
 import { IBalance } from '../../interfaces';
 import { ArrowDownCircle, ArrowUpCircle, DollarSign } from 'react-feather';
 import Greetings from '../../components/Header';
+import { priceMaskNumber } from '../../utils/mask';
 
 export default function Dashboard({ title }: ISEOProps) {
   document.title = title;
   const [balance, setBalance] = useState<IBalance>();
 
-  const fetchTransactions = async () => {
+  const fetchBalance = async () => {
     const { data } = await api.get('transaction/my-balance');
 
     console.log(data);
@@ -20,7 +21,7 @@ export default function Dashboard({ title }: ISEOProps) {
   };
 
   useEffect(() => {
-    fetchTransactions();
+    fetchBalance();
   }, []);
 
   return (
@@ -34,27 +35,20 @@ export default function Dashboard({ title }: ISEOProps) {
               <S.BalanceTile>
                 <div className="row">
                   <ArrowUpCircle color="#33cc95" />
-                  <h1>
-                    {/* R$ {priceMask(balance?.deposit)} */}
-                    R$ {(balance?.deposit / 100).toFixed(2).replace('.', ',')}
-                  </h1>
+                  <h1>R$ {priceMaskNumber(balance?.deposit)}</h1>
                 </div>
               </S.BalanceTile>
               <S.BalanceTile>
                 <div className="row">
                   <ArrowDownCircle color="#e52e4d" />
-                  <h1>
-                    R$ {(balance?.withdraw / 100).toFixed(2).replace('.', ',')}
-                  </h1>
+                  <h1>R$ {priceMaskNumber(balance?.withdraw)}</h1>
                 </div>
               </S.BalanceTile>
               <S.BalanceTile>
                 <S.Balance greater={balance?.balance > 0}>
                   <div className="row">
                     <DollarSign />
-                    <h1>
-                      R$ {(balance?.balance / 100).toFixed(2).replace('.', ',')}
-                    </h1>
+                    <h1>R$ {priceMaskNumber(balance?.balance)}</h1>
                   </div>
                 </S.Balance>
               </S.BalanceTile>
