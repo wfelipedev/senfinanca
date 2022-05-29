@@ -57,7 +57,7 @@ export default function TransactionTable({
 
   return (
     <TableContainer elevation={0} component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table" size="small">
+      <Table sx={{ minWidth: 700 }} aria-label="customized table" >
         <TableHead>
           <TableRow>
             <StyledTableCell>Título</StyledTableCell>

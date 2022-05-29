@@ -328,3 +328,51 @@ export const CloseIcon = styled('div')`
     cursor: pointer;
   }
 `;
+
+export const DialogContent = styled('div')`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+
+  height: 10rem;
+
+  background: #e8e654;
+`;
+
+export const DialogButtonContainer = styled('div')`
+  display: flex;
+  flex-direction: row;
+  height: 4rem;
+  width: 100%;
+  justify-content: center;
+
+  .row {
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+
+    align-items: center;
+  }
+
+  .cancel {
+    height: 4rem;
+    width: 50%;
+    border-top: 1px solid #f1f1f1;
+
+    &:hover {
+      border: 0px solid #fff;
+      background: ${transparentize(0.9, '#333')};
+    }
+  }
+
+  .save {
+    height: 4rem;
+    width: 50%;
+
+    &:hover {
+      background: ${transparentize(0.1, '#333')};
+    }
+  }
+`;

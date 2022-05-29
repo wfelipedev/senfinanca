@@ -1,3 +1,4 @@
+import { transparentize } from 'polished';
 import styled from 'styled-components';
 
 export const Main = styled.div`
@@ -144,9 +145,12 @@ export const MainTileTitle = styled.h1<MainTitleTitleProps>`
   font-weight: 600;
   font-size: ${({ isTitle }) => (isTitle ? '1.5rem' : '1rem')};
   user-select: none;
+  transition: 0.3s;
 
   &:hover {
     cursor: ${({ isTitle }) => (isTitle ? '' : 'pointer')};
+    transition: 0.3s;
+    color: ${({ isTitle }) => (isTitle ? '' : transparentize(0.3, '#333'))};
   }
 `;
 

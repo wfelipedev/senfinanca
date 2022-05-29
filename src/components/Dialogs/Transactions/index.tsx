@@ -17,7 +17,6 @@ import { ArrowDownCircle, ArrowUpCircle, X } from 'react-feather';
 import { ITransaction } from '../../../interfaces';
 import { priceMask, priceMaskNumber } from '../../../utils/mask';
 import { checkIfErrorIsProvidedFromDtoOrArray } from '../../../utils/checkError';
-
 interface DialogProps {
   transaction?: ITransaction;
   isVisible: boolean;

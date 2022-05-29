@@ -1,5 +1,5 @@
-import * as S from '../../../styles/transactions';
-import { Dialog, DialogActions, DialogContent, Grid } from '@mui/material';
+import * as Styled from '../../../styles/transactions';
+import { Dialog } from '@mui/material';
 import { useAuth } from '../../../context/useAuth';
 
 interface DialogProps {
@@ -12,29 +12,23 @@ export default function DialogSignout({ isVisible, closeModal }: DialogProps) {
 
   return (
     <Dialog maxWidth="sm" fullWidth open={isVisible} onClose={closeModal}>
-      <DialogContent>
-        <Grid container>
-          <Grid item xs={12}>
-            <h1>Deseja mesmo sair?</h1>
-          </Grid>
-        </Grid>
-      </DialogContent>
-      <DialogActions>
-        <S.ActionButtons isEdit={false}>
-          <S.Row>
-            <S.CustomCancelLoadingButton
-              className="cancel"
-              onClick={closeModal}
-            >
-              Não
-            </S.CustomCancelLoadingButton>
+      <Styled.DialogContent>
+        <h1>Deseja mesmo sair?</h1>
+      </Styled.DialogContent>
+      <Styled.DialogButtonContainer>
+        <div className="row">
+          <Styled.CustomCancelLoadingButton
+            className="cancel"
+            onClick={closeModal}
+          >
+            Não
+          </Styled.CustomCancelLoadingButton>
 
-            <S.CustomLoadingButton className="save" onClick={signOut}>
-              Sim
-            </S.CustomLoadingButton>
-          </S.Row>
-        </S.ActionButtons>
-      </DialogActions>
+          <Styled.CustomLoadingButton className="save" onClick={signOut}>
+            Sim
+          </Styled.CustomLoadingButton>
+        </div>
+      </Styled.DialogButtonContainer>
     </Dialog>
   );
 }
