@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from 'react';
-import * as S from '../../../styles/transactions';
+import * as Styled from '../../../styles/transactions';
 import {
   CircularProgress,
   Dialog,
@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import { Form } from 'antd';
 import { api } from '../../../services/api';
-import { ArrowDownCircle, ArrowUpCircle } from 'react-feather';
+import { ArrowDownCircle, ArrowUpCircle, X } from 'react-feather';
 import { ITransaction } from '../../../interfaces';
 import { priceMask, priceMaskNumber } from '../../../utils/mask';
 import { checkIfErrorIsProvidedFromDtoOrArray } from '../../../utils/checkError';
@@ -116,14 +116,14 @@ export default function DialogTransaction({
     ],
   );
 
-  const handleDeleteTransaction = useCallback(async () => {
+  /*   const handleDeleteTransaction = useCallback(async () => {
     const { data } = await api.delete(`/transaction/${transaction?._id}`);
 
     success(data.message);
     form.resetFields();
     closeModal();
     fetchTransactions();
-  }, [closeModal, fetchTransactions, form, success, transaction?._id]);
+  }, [closeModal, fetchTransactions, form, success, transaction?._id]); */
 
   useEffect(() => {
     if (transaction) {
@@ -143,19 +143,28 @@ export default function DialogTransaction({
       <Form
         form={form}
         layout="vertical"
-        onFinish={
-          transaction?.title ? handleUpdateTransaction : handleSaveTransaction
-        }
+        onFinish={transaction ? handleUpdateTransaction : handleSaveTransaction}
       >
         <DialogTitle>
-          {transaction?.title ? 'Editar ' : 'Nova'} Transação
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
+          >
+            {transaction ? 'Editar ' : 'Nova'} Transação
+            <Styled.CloseIcon onClick={closeModal}>
+              <X />
+            </Styled.CloseIcon>
+          </div>
         </DialogTitle>
         <DialogContent>
           <DialogContentText>Informações da Transação</DialogContentText>
           <Grid container spacing={1}>
             <Grid item xs={12}>
               <Form.Item name="title">
-                <S.TextFieldCustom
+                <Styled.TextFieldCustom
                   margin="dense"
                   id="title-id"
                   label="Título"
@@ -168,7 +177,7 @@ export default function DialogTransaction({
             </Grid>
             <Grid item xs={12}>
               <Form.Item name="value">
-                <S.TextFieldCustom
+                <Styled.TextFieldCustom
                   margin="dense"
                   id="type-id"
                   label="Valor"
@@ -189,34 +198,34 @@ export default function DialogTransaction({
               </Form.Item>
             </Grid>
             <Grid item xs={6}>
-              <S.TypeButtom
+              <Styled.TypeButtom
                 isActive={transactionType === 'deposit'}
                 activeColor="green"
                 onClick={() => {
                   setTransactionType('deposit');
                 }}
               >
-                <S.Row>
+                <Styled.Row>
                   <ArrowUpCircle color="#333" size={18} />
                   <h1>Entrada</h1>
-                </S.Row>
-              </S.TypeButtom>
+                </Styled.Row>
+              </Styled.TypeButtom>
             </Grid>
             <Grid item xs={6}>
-              <S.TypeButtom
+              <Styled.TypeButtom
                 isActive={transactionType === 'withdraw'}
                 activeColor="red"
                 onClick={() => setTransactionType('withdraw')}
               >
-                <S.Row>
+                <Styled.Row>
                   <ArrowDownCircle color="#333" size={18} />
                   <h1>Saída</h1>
-                </S.Row>
-              </S.TypeButtom>
+                </Styled.Row>
+              </Styled.TypeButtom>
             </Grid>
             <Grid item xs={12}>
               <Form.Item name="category">
-                <S.TextFieldCustom
+                <Styled.TextFieldCustom
                   id="outlined-select-currency"
                   select
                   placeholder="Selecione uma categoria"
@@ -232,32 +241,23 @@ export default function DialogTransaction({
                       {item}
                     </MenuItem>
                   ))}
-                </S.TextFieldCustom>
+                </Styled.TextFieldCustom>
               </Form.Item>
             </Grid>
           </Grid>
         </DialogContent>
         <DialogActions>
-          <S.ActionButtons isEdit={!!transaction?.title}>
-            {transaction?.title && (
-              <S.CustomDeleteLoadingButton
-                className="cancel"
-                onClick={handleDeleteTransaction}
-              >
-                Deletar
-              </S.CustomDeleteLoadingButton>
-            )}
-
-            <S.Row>
-              <S.CustomCancelLoadingButton
+          <Styled.ActionButtons isEdit={!!transaction}>
+            <Styled.Row>
+              <Styled.CustomCancelLoadingButton
                 className="cancel"
                 onClick={closeModal}
               >
                 Cancelar
-              </S.CustomCancelLoadingButton>
+              </Styled.CustomCancelLoadingButton>
 
               <Form.Item shouldUpdate>
-                <S.CustomLoadingButton
+                <Styled.CustomLoadingButton
                   className="save"
                   type="submit"
                   loading={loading}
@@ -265,11 +265,11 @@ export default function DialogTransaction({
                     <CircularProgress className="progress" size={16} />
                   }
                 >
-                  {transaction?.title ? 'Editar' : 'Cadastrar'}
-                </S.CustomLoadingButton>
+                  {transaction ? 'Editar' : 'Cadastrar'}
+                </Styled.CustomLoadingButton>
               </Form.Item>
-            </S.Row>
-          </S.ActionButtons>
+            </Styled.Row>
+          </Styled.ActionButtons>
         </DialogActions>
       </Form>
     </Dialog>

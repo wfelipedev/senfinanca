@@ -1,5 +1,5 @@
 import { styled } from '@mui/system';
-import { Drawer, ListItem } from '@mui/material';
+import { Drawer } from '@mui/material';
 import { transparentize } from 'polished';
 
 export const Root = styled('div')`
@@ -20,8 +20,9 @@ export const Logo = styled('div')`
   user-select: none;
 
   .first {
-    @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;900&display=swap');
-    font-family: 'Mulish', sans-serif;
+    @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap');
+    /*  @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;900&display=swap');
+    font-family: 'Mulish', sans-serif; */
     font-weight: 900;
     color: #07102d;
   }
@@ -69,11 +70,11 @@ export const DrawerCustom = styled(Drawer)<SelectedProps>`
     background: #fbfcfe;
   }
 
-  .listItem {
-    border-right-style: ${(props) => (props.selected ? 'solid' : '')};
-    border-color: ${(props) => (props.selected ? '#333' : '')};
-    border-width: ${(props) => (props.selected ? '.3rem' : '')};
-    color: ${(props) => (props.selected ? '#4b4a59' : '#333')};
+  .listItemSelected {
+    border-right-style: solid;
+    border-color: #333;
+    border-width: 0.3rem;
+    color: #4b4a59;
 
     font-weight: bold;
 
@@ -85,21 +86,18 @@ export const DrawerCustom = styled(Drawer)<SelectedProps>`
       color: ${transparentize(0, '#333')};
     }
   }
-`;
 
-interface SelectedProps {
-  selected?: boolean;
-}
+  .listItem {
+    color: #333;
 
-export const ListItemSelected = styled(ListItem)<SelectedProps>`
-  border-right-style: ${(props) => (props.selected ? 'solid' : '')};
-  border-color: ${(props) => (props.selected ? '#333' : '')};
-  border-width: ${(props) => (props.selected ? '.3rem' : '')};
-  color: ${(props) => (props.selected ? '#4b4a59' : '#6b7c93')};
+    font-weight: bold;
 
-  font-weight: bold;
+    &:hover {
+      cursor: pointer;
+    }
 
-  .icon {
-    color: ${transparentize(0.3, '#333')};
+    .icon {
+      color: ${transparentize(0, '#333')};
+    }
   }
 `;

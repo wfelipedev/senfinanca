@@ -7,6 +7,8 @@ export const Main = styled('div')`
   min-width: calc(100vw - 220px);
   padding: 4rem;
 
+  font-family: 'Barlow', sans-serif;
+
   .title {
     font-weight: bold;
     user-select: none;
@@ -42,10 +44,25 @@ export const CustomTableRow = styled(TableRow)`
   }
 `;
 
-export const EyeButton = styled('div')`
+export const ActionButton = styled('div')`
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+
+  justify-content: center;
+  align-items: center;
+
   .icon {
     &:hover {
       cursor: pointer;
+    }
+  }
+
+  transform: 0.5s;
+  .trash {
+    &:hover {
+      transform: 0.5s;
+      color: #ff5353;
     }
   }
 `;
@@ -59,6 +76,8 @@ export const SearchBox = styled('div')`
 
   display: flex;
   flex-direction: row;
+
+  justify-content: flex-end;
   gap: 0.5rem;
 `;
 
@@ -110,7 +129,7 @@ export const TextFieldCustom = styled(TextField)`
 
 export const SearchButton = styled(LoadingButton)`
   height: 3rem;
-  width: 10%;
+  width: 8rem;
   background: #333;
   color: #fff;
   font-size: 0.8rem;
@@ -121,8 +140,10 @@ export const SearchButton = styled(LoadingButton)`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 
   user-select: none;
+  text-transform: none;
 
   .progress {
     color: #fff;
@@ -136,7 +157,7 @@ export const SearchButton = styled(LoadingButton)`
 
 export const AddButton = styled('div')`
   height: 3rem;
-  width: 10%;
+  width: 8rem;
   background: #333;
   color: #fff;
   font-size: 0.8rem;
@@ -147,6 +168,7 @@ export const AddButton = styled('div')`
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
 
   user-select: none;
 
@@ -211,7 +233,7 @@ export const ActionButtons = styled('div')<ActionProps>`
   display: flex;
   flex-direction: row;
   width: 100%;
-  justify-content: ${(props) => (props.isEdit ? 'space-between' : 'flex-end')};
+  justify-content: flex-end;
   padding: 0 1rem;
 
   .cancel {
@@ -250,9 +272,10 @@ export const CustomLoadingButton = styled(LoadingButton)`
   background: #333;
   color: #fff;
   font-weight: bold;
-  border: none;
   border-radius: 0;
   margin: 1.5rem 0;
+
+  text-transform: none;
 
   .progress {
     color: #fff;
@@ -269,13 +292,19 @@ export const CustomCancelLoadingButton = styled(LoadingButton)`
   background: #fff;
   color: #333;
   font-weight: bold;
-  border: none;
+  border: 1px solid #f1f1f1;
   border-radius: 0;
   margin: 1.5rem 0;
+
+  transform: 0.5s;
+
+  text-transform: none;
 
   &:hover {
     color: #333;
     background: rgba(109, 110, 171, 0.2);
+    transform: 0.5s;
+    border: 1px solid #ffffff;
   }
 `;
 
@@ -291,5 +320,11 @@ export const Empty = styled('div')`
     font-size: 1rem;
     font-weight: bold;
     user-select: none;
+  }
+`;
+
+export const CloseIcon = styled('div')`
+  &:hover {
+    cursor: pointer;
   }
 `;

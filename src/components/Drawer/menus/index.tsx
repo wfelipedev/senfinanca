@@ -15,7 +15,9 @@ export default function Menus({ routeSelected }: MenuProps) {
   return (
     <>
       <ListItem
-        className="listItem"
+        className={
+          routeSelected === 'dashboard' ? 'listItemSelected' : 'listItem'
+        }
         component={Link}
         selected={routeSelected === 'dashboard'}
         to="/dashboard"
@@ -28,7 +30,9 @@ export default function Menus({ routeSelected }: MenuProps) {
         </ListItemText>
       </ListItem>
       <ListItem
-        className="listItem"
+        className={
+          routeSelected === 'transactions' ? 'listItemSelected' : 'listItem'
+        }
         component={Link}
         selected={routeSelected === 'transactions'}
         to="/transactions"

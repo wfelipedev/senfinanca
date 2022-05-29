@@ -17,7 +17,11 @@ export default function SignIn() {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const [loading, setLoading] = useState<boolean>(false);
-  const { signIn } = useAuth();
+  const { isAuthenticated, signIn } = useAuth();
+
+  if (isAuthenticated) {
+    navigate('/dashboard');
+  }
 
   const error = (msg: string) => {
     toast.error(msg, {

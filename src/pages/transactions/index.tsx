@@ -9,13 +9,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
 import { ISEOProps, ITransaction } from '../../interfaces';
 import TransactionTable from '../../components/Transactions/Table';
-import { CircularProgress, MenuItem } from '@mui/material';
+import { CircularProgress } from '@mui/material';
 import Empty from '../../images/empty.svg';
-import Greetings from '../../components/Header';
+// import Greetings from '../../components/Header';
 import PartialBalance from '../../components/Transactions/PartialBalance';
 import { checkIfErrorIsProvidedFromDtoOrArray } from '../../utils/checkError';
+import { Filter, Plus } from 'react-feather';
 
-const categories = [
+/* const categories = [
   'Todas as Categorias',
   'Moradias',
   'Contas',
@@ -29,7 +30,7 @@ const categories = [
   'Outro',
 ];
 
-const types = ['Todos os Tipos', 'Entrada', 'Saída'];
+const types = ['Todos os Tipos', 'Entrada', 'Saída']; */
 
 export default function Transactions({ title }: ISEOProps) {
   document.title = title;
@@ -154,9 +155,9 @@ export default function Transactions({ title }: ISEOProps) {
       <ToastContainer />
       <DrawerCustom>
         <S.Main>
-          <Greetings subtitle="Suas Transações" />
+          {/* <Greetings subtitle="Suas Transações" /> */}
           <S.SearchBox>
-            <S.SearchfieldCustom
+            {/*  <S.SearchfieldCustom
               isSearch={true}
               variant="filled"
               fullWidth
@@ -209,7 +210,7 @@ export default function Transactions({ title }: ISEOProps) {
                   {item}
                 </MenuItem>
               ))}
-            </S.SearchfieldCustom>
+            </S.SearchfieldCustom> */}
             <S.SearchButton
               loading={isLoading}
               loadingIndicator={
@@ -217,14 +218,19 @@ export default function Transactions({ title }: ISEOProps) {
               }
               onClick={handleSearch}
             >
+              <Filter size={18} />
               Buscar
             </S.SearchButton>
             <S.AddButton onClick={() => openModalCreate(selectedTransaction)}>
+              <Plus size={18} />
               Novo
             </S.AddButton>
           </S.SearchBox>
           {partialBalance && (
-            <PartialBalance deposit={deposit} withdraw={withdraw} />
+            <PartialBalance
+              deposit={depositRef.current}
+              withdraw={withdrawRef.current}
+            />
           )}
           {transactions.length > 0 ? (
             <TransactionTable

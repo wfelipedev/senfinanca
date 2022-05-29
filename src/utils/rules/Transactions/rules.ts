@@ -19,7 +19,6 @@ const value: Rule[] = [
   },
   () => ({
     validator(_, value: number) {
-      console.log(value === 0);
       if (value === 0)
         return Promise.reject(new Error('O valor deve ser maior que 0!'));
     },

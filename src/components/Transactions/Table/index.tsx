@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import { ITransaction } from '../../../interfaces';
 import * as S from '../../../styles/transactions';
-import { ArrowDownCircle, ArrowUpCircle, Eye } from 'react-feather';
+import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2 } from 'react-feather';
 import { format } from 'date-fns';
 import { priceMaskNumber } from '../../../utils/mask';
 
@@ -44,7 +44,7 @@ export default function TransactionTable({
     setPage(0);
   };
 
-  const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  const StyledTableCell = styled(TableCell)(() => ({
     [`&.${tableCellClasses.head}`]: {
       backgroundColor: '#333',
       color: '#fff',
@@ -104,9 +104,14 @@ export default function TransactionTable({
                     {format(new Date(transaction.createdAt), 'dd/MM/yyyy')}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <S.EyeButton onClick={() => openModalCreate(transaction)}>
-                      <Eye className="icon" />
-                    </S.EyeButton>
+                    <S.ActionButton>
+                      <Edit2
+                        className="icon"
+                        size={18}
+                        onClick={() => openModalCreate(transaction)}
+                      />
+                      <Trash2 className="icon trash" size={18} />
+                    </S.ActionButton>
                   </StyledTableCell>
                 </S.CustomTableRow>
               ))}

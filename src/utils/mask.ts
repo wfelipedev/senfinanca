@@ -12,9 +12,9 @@ export function priceMask(value: any) {
   return value;
 }
 
-export function priceMaskNumber(value: number) {
+export function priceMaskNumber(value?: number) {
   if (value) {
-    let maskedPrice ;
+    let maskedPrice;
     maskedPrice = `${(value / 100).toFixed(2)}`;
     maskedPrice = maskedPrice.replace('.', ',');
     maskedPrice = maskedPrice.replace(/(\d)(\d{3})(\d{3}),/g, '$1.$2.$3,');
