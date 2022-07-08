@@ -1,52 +1,38 @@
 import { useCallback, useState, useEffect } from 'react';
-import * as Styled from '../../../styles/transactions';
 import {
   CircularProgress,
   Dialog,
-  DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
   Grid,
   InputAdornment,
   MenuItem,
+  TextField,
 } from '@mui/material';
 import { Form } from 'antd';
-import { api } from '../../../services/api';
 import { ArrowDownCircle, ArrowUpCircle, X } from 'react-feather';
+import { api } from '../../../services/api';
 import { ITransaction } from '../../../interfaces';
 import { priceMask, priceMaskNumber } from '../../../utils/mask';
-import { checkIfErrorIsProvidedFromDtoOrArray } from '../../../utils/checkError';
-interface DialogProps {
+import { success, error } from '../../../utils/toasts';
+import { checkErrorOrigin } from '../../../utils/checkError';
+import { categories } from '../../../utils/constants';
+import * as Styled from './styles';
+
+interface IDialogProps {
   transaction?: ITransaction;
   isVisible: boolean;
   closeModal: () => void;
   fetchTransactions: () => Promise<void>;
-  success: (msg: string) => void;
-  error: (msg: string) => void;
 }
-
-const categories = [
-  'Moradias',
-  'Contas',
-  'Educação',
-  'Comida',
-  'Saúde',
-  'Lazer',
-  'Mercado',
-  'Transporte',
-  'Salário',
-  'Outro',
-];
 
 export default function DialogTransaction({
   transaction,
   isVisible,
   closeModal,
   fetchTransactions,
-  success,
-  error,
-}: DialogProps) {
+}: IDialogProps) {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState<boolean>(false);
   const [transactionType, setTransactionType] = useState<string>('deposit');
@@ -59,12 +45,12 @@ export default function DialogTransaction({
         if (fields.title === '' || fields.title === undefined)
           title = 'Sem Título';
 
-        const value: number = fields.value.replace('.', '').replace(',', '');
+        const value = fields.value.replace('.', '').replace(',', '');
 
         const entity = {
           ...fields,
           title,
-          value,
+          value: +value,
           type: transactionType,
         };
 
@@ -76,22 +62,27 @@ export default function DialogTransaction({
         closeModal();
         fetchTransactions();
       } catch (err: any) {
-        error(checkIfErrorIsProvidedFromDtoOrArray(err));
+        error(checkErrorOrigin(err));
       } finally {
         setLoading(false);
       }
     },
-    [closeModal, error, fetchTransactions, form, success, transactionType],
+    [closeModal, fetchTransactions, form, transactionType],
   );
 
   const handleUpdateTransaction = useCallback(
     async (fields: any) => {
       setLoading(true);
 
-      const entity = Object.assign(transaction, {
-        ...fields,
-        type: transactionType,
-      });
+      let entity;
+      if (transaction) {
+        const value = fields.value.replace('.', '').replace(',', '');
+        entity = Object.assign(transaction, {
+          ...fields,
+          value: +value,
+          type: transactionType,
+        });
+      }
 
       const { data } = await api.patch(
         `/transaction/${transaction?._id}`,
@@ -105,37 +96,20 @@ export default function DialogTransaction({
       closeModal();
       fetchTransactions();
     },
-    [
-      closeModal,
-      fetchTransactions,
-      form,
-      success,
-      transaction,
-      transactionType,
-    ],
+    [closeModal, fetchTransactions, form, transaction, transactionType],
   );
-
-  /*   const handleDeleteTransaction = useCallback(async () => {
-    const { data } = await api.delete(`/transaction/${transaction?._id}`);
-
-    success(data.message);
-    form.resetFields();
-    closeModal();
-    fetchTransactions();
-  }, [closeModal, fetchTransactions, form, success, transaction?._id]); */
 
   useEffect(() => {
     if (transaction) {
       form.setFieldsValue({
         title: transaction.title,
         type: transaction.type,
-        value: priceMaskNumber(transaction.value),
+        value: priceMaskNumber(+transaction.value),
         category: transaction.category,
       });
       setTransactionType(transaction.type);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [transaction]);
+  }, [form, transaction]);
 
   return (
     <Dialog maxWidth="sm" fullWidth open={isVisible} onClose={closeModal}>
@@ -152,7 +126,7 @@ export default function DialogTransaction({
               justifyContent: 'space-between',
             }}
           >
-            {transaction ? 'Editar ' : 'Nova'} Transação
+            {transaction?.title ? 'Editar ' : 'Nova'} Transação
             <Styled.CloseIcon onClick={closeModal}>
               <X />
             </Styled.CloseIcon>
@@ -162,8 +136,8 @@ export default function DialogTransaction({
           <DialogContentText>Informações da Transação</DialogContentText>
           <Grid container spacing={1}>
             <Grid item xs={12}>
-              <Form.Item name="title">
-                <Styled.TextFieldCustom
+              <Form.Item name="title" style={{ marginBottom: '0' }}>
+                <TextField
                   margin="dense"
                   id="title-id"
                   label="Título"
@@ -175,8 +149,8 @@ export default function DialogTransaction({
               </Form.Item>
             </Grid>
             <Grid item xs={12}>
-              <Form.Item name="value">
-                <Styled.TextFieldCustom
+              <Form.Item name="value" style={{ marginBottom: '0' }}>
+                <TextField
                   margin="dense"
                   id="type-id"
                   label="Valor"
@@ -224,7 +198,7 @@ export default function DialogTransaction({
             </Grid>
             <Grid item xs={12}>
               <Form.Item name="category">
-                <Styled.TextFieldCustom
+                <TextField
                   id="outlined-select-currency"
                   select
                   placeholder="Selecione uma categoria"
@@ -240,26 +214,26 @@ export default function DialogTransaction({
                       {item}
                     </MenuItem>
                   ))}
-                </Styled.TextFieldCustom>
+                </TextField>
               </Form.Item>
             </Grid>
           </Grid>
-        </DialogContent>
-        <DialogActions>
           <Styled.ActionButtons isEdit={!!transaction}>
             <Styled.Row>
               <Styled.CustomCancelLoadingButton
                 className="cancel"
+                disabled={loading}
                 onClick={closeModal}
               >
                 Cancelar
               </Styled.CustomCancelLoadingButton>
 
-              <Form.Item shouldUpdate>
+              <Form.Item shouldUpdate className="form">
                 <Styled.CustomLoadingButton
                   className="save"
                   type="submit"
                   loading={loading}
+                  disabled={loading}
                   loadingIndicator={
                     <CircularProgress className="progress" size={16} />
                   }
@@ -269,7 +243,7 @@ export default function DialogTransaction({
               </Form.Item>
             </Styled.Row>
           </Styled.ActionButtons>
-        </DialogActions>
+        </DialogContent>
       </Form>
     </Dialog>
   );

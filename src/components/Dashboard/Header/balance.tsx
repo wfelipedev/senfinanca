@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import * as Styled from '../../../styles/dashboard';
 import { priceMaskNumber } from '../../../utils/mask';
+import * as Styled from './styles';
 
 interface BalanceProps {
   icon: any;
@@ -30,7 +30,15 @@ const BalanceTile = ({ icon, value, type, subtitle }: BalanceProps) => {
           >
             R$ {priceMaskNumber(value)}
             <br />
-            <div style={{ fontSize: '.8rem', color: '#c9c9c9', marginTop: '.3rem' }}>{subtitle}</div>
+            <div
+              style={{
+                fontSize: '.8rem',
+                color: '#c9c9c9',
+                marginTop: '.3rem',
+              }}
+            >
+              {subtitle}
+            </div>
           </Styled.BalanceValue>
         </div>
       </div>

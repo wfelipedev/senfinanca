@@ -1,8 +1,8 @@
 import { ISEOProps } from '../../interfaces';
-import NotFoundSVG from '../../images/not_found.svg';
-import * as S from '../../styles/notfound';
+import NotFoundSVG from '../../assets/images/not_found.svg';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/useAuth';
+import * as S from './styles';
 
 export default function NotFound({ title }: ISEOProps) {
   document.title = title;

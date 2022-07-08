@@ -1,6 +1,6 @@
-import { styled } from '@mui/system';
 import { Drawer } from '@mui/material';
 import { transparentize } from 'polished';
+import styled from 'styled-components';
 
 export const Root = styled('div')`
   display: flex;
@@ -21,8 +21,6 @@ export const Logo = styled('div')`
 
   .first {
     @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@1,300&display=swap');
-    /*  @import url('https://fonts.googleapis.com/css2?family=Mulish:wght@700;900&display=swap');
-    font-family: 'Mulish', sans-serif; */
     font-weight: 900;
     color: #07102d;
   }
@@ -44,6 +42,7 @@ export const Row = styled('div')`
 
   h1 {
     color: #333;
+    margin: 0;
   }
 `;
 

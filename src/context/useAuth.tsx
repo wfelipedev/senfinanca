@@ -5,11 +5,11 @@ import {
   useContext,
   ReactNode,
 } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.min.css';
-import { IUser } from '../interfaces';
-import { ICredentials } from '../interfaces';
+import { Toaster } from 'react-hot-toast';
+
+import { IUser, ICredentials } from '../interfaces';
 import { api } from '../services/api';
+import { error } from '../utils/toasts';
 
 export const AuthContext = createContext({} as AuthContextData);
 
@@ -32,18 +32,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(
     !!JSON.parse(localStorage.getItem('@sense:authenticated') || 'false'),
   );
-
-  function warning(error: string) {
-    toast.error(error, {
-      position: 'bottom-center',
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-      progress: undefined,
-    });
-  }
 
   useEffect(() => {
     const storagedLogged = localStorage.getItem('@sense:authenticated');
@@ -73,8 +61,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
       localStorage.setItem('@sense:accessToken', response.data.accessToken);
 
       window.location.href = '/dashboard';
-    } catch (error) {
-      warning('E-mail e/ou Senha inválidos!');
+    } catch (err) {
+      error('E-mail e/ou Senha inválidos!');
     }
   }
 
@@ -86,7 +74,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
   return (
     <>
-      <ToastContainer />
+      <Toaster />
       <AuthContext.Provider
         value={{ isAuthenticated, signIn, signOut, user, setUser }}
       >

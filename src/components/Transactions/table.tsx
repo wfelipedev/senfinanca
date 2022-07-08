@@ -12,20 +12,24 @@ import {
   TablePagination,
   TableRow,
 } from '@mui/material';
-import { ITransaction } from '../../../interfaces';
-import * as S from '../../../styles/transactions';
+import { ITransaction } from '../../interfaces';
 import { ArrowDownCircle, ArrowUpCircle, Edit2, Trash2 } from 'react-feather';
 import { format } from 'date-fns';
-import { priceMaskNumber } from '../../../utils/mask';
+import { priceMaskNumber } from '../../utils/mask';
+import * as Styled from './styles';
 
 interface ITableProps {
   transactions: ITransaction[];
   openModalCreate: (transaction?: ITransaction | undefined) => void;
+  openModalDelete: (transaction?: ITransaction | undefined) => void;
+  fetchTransactions: () => void;
 }
 
 export default function TransactionTable({
   transactions,
   openModalCreate,
+  openModalDelete,
+  fetchTransactions,
 }: ITableProps) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -55,9 +59,24 @@ export default function TransactionTable({
     },
   }));
 
+  const arrowIcon = (transaction: ITransaction) =>
+    transaction.type === 'deposit' ? (
+      <ArrowUpCircle
+        size={16}
+        style={{ marginRight: '.4rem' }}
+        color="#33cc95"
+      />
+    ) : (
+      <ArrowDownCircle
+        size={16}
+        style={{ marginRight: '.4rem' }}
+        color="#e52e4d"
+      />
+    );
+
   return (
     <TableContainer elevation={0} component={Paper}>
-      <Table sx={{ minWidth: 700 }} aria-label="customized table" >
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>Título</StyledTableCell>
@@ -72,64 +91,47 @@ export default function TransactionTable({
             transactions
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map((transaction) => (
-                <S.CustomTableRow key={transaction._id}>
+                <Styled.CustomTableRow key={transaction._id}>
                   <StyledTableCell component="th" scope="row">
                     {transaction.title}
                   </StyledTableCell>
                   <StyledTableCell>
-                    {transaction.type === 'deposit' ? (
-                      <S.Row>
-                        <ArrowUpCircle
-                          size={16}
-                          style={{ marginRight: '.4rem' }}
-                          color="#33cc95"
-                        />
-                        R$
-                        {priceMaskNumber(transaction.value)}
-                      </S.Row>
-                    ) : (
-                      <S.Row>
-                        <ArrowDownCircle
-                          size={16}
-                          style={{ marginRight: '.4rem' }}
-                          color="#e52e4d"
-                        />
-                        R$
-                        {priceMaskNumber(transaction.value)}
-                      </S.Row>
-                    )}
+                    <Styled.Row>
+                      {arrowIcon(transaction)}
+                      R$
+                      {priceMaskNumber(+transaction.value)}
+                    </Styled.Row>
                   </StyledTableCell>
                   <StyledTableCell>{transaction.category}</StyledTableCell>
                   <StyledTableCell component="th" scope="row">
                     {format(new Date(transaction.createdAt), 'dd/MM/yyyy')}
                   </StyledTableCell>
                   <StyledTableCell align="center">
-                    <S.ActionButton>
+                    <Styled.ActionButton>
                       <Edit2
                         className="icon"
                         size={18}
                         onClick={() => openModalCreate(transaction)}
                       />
-                      <Trash2 className="icon trash" size={18} />
-                    </S.ActionButton>
+                      <Trash2
+                        onClick={() => openModalDelete(transaction)}
+                        className="icon trash"
+                        size={18}
+                      />
+                    </Styled.ActionButton>
                   </StyledTableCell>
-                </S.CustomTableRow>
+                </Styled.CustomTableRow>
               ))}
         </TableBody>
         <TableFooter>
           <TableRow>
             <TablePagination
               rowsPerPageOptions={[10, 25, 50]}
-              colSpan={3}
+              colSpan={6}
               count={transactions.length}
               rowsPerPage={rowsPerPage}
               page={page}
-              SelectProps={{
-                inputProps: {
-                  'aria-label': 'Paginas ',
-                },
-                native: true,
-              }}
+              labelRowsPerPage="Linhas por página"
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />

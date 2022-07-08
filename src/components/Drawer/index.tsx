@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import {
   Typography,
   CssBaseline,
@@ -6,11 +7,10 @@ import {
   ListItemText,
   ListItem,
 } from '@mui/material';
-import * as S from '../../styles/drawer';
-import Menus from './menus';
 import { BarChart2, LogOut } from 'react-feather';
+import Menus from './menus';
 import DialogSignout from '../Dialogs/Signout';
-import { useState } from 'react';
+import * as S from './styles';
 
 interface DrawerProps {
   children: JSX.Element;

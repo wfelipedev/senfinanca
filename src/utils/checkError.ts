@@ -1,4 +1,4 @@
-interface ICheckIfErrorIsProvidedFromDtoOrArray {
+interface IcheckErrorOrigin {
   response: {
     data: {
       message: string | string[];
@@ -6,9 +6,7 @@ interface ICheckIfErrorIsProvidedFromDtoOrArray {
   };
 }
 
-export const checkIfErrorIsProvidedFromDtoOrArray = (
-  e: ICheckIfErrorIsProvidedFromDtoOrArray,
-): string => {
+export const checkErrorOrigin = (e: IcheckErrorOrigin): string => {
   const { response } = e;
 
   const message = Array.isArray(response?.data.message)

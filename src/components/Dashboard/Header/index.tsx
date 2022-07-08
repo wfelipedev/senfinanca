@@ -1,8 +1,8 @@
 import { ArrowDown, ArrowUp, DollarSign, MoreHorizontal } from 'react-feather';
 import { useAuth } from '../../../context/useAuth';
 import { IBalance } from '../../../interfaces';
-import * as Styled from '../../../styles/dashboard';
 import BalanceTile from './balance';
+import * as Styled from './styles';
 
 interface HeaderProps {
   balance?: IBalance;

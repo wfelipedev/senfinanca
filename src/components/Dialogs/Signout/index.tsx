@@ -1,6 +1,6 @@
-import * as Styled from '../../../styles/transactions';
 import { Dialog } from '@mui/material';
 import { useAuth } from '../../../context/useAuth';
+import * as Styled from './styles';
 
 interface DialogProps {
   isVisible: boolean;
@@ -18,13 +18,18 @@ export default function DialogSignout({ isVisible, closeModal }: DialogProps) {
       <Styled.DialogButtonContainer>
         <div className="row">
           <Styled.CustomCancelLoadingButton
+            disableRipple
             className="cancel"
             onClick={closeModal}
           >
             Não
           </Styled.CustomCancelLoadingButton>
 
-          <Styled.CustomLoadingButton className="save" onClick={signOut}>
+          <Styled.CustomLoadingButton
+            disableRipple
+            className="save"
+            onClick={signOut}
+          >
             Sim
           </Styled.CustomLoadingButton>
         </div>
