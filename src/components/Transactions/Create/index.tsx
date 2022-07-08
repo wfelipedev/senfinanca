@@ -116,7 +116,9 @@ export default function DialogTransaction({
       <Form
         form={form}
         layout="vertical"
-        onFinish={transaction ? handleUpdateTransaction : handleSaveTransaction}
+        onFinish={
+          transaction?.title ? handleUpdateTransaction : handleSaveTransaction
+        }
       >
         <DialogTitle>
           <div
@@ -238,7 +240,7 @@ export default function DialogTransaction({
                     <CircularProgress className="progress" size={16} />
                   }
                 >
-                  {transaction ? 'Editar' : 'Cadastrar'}
+                  {transaction?.title ? 'Editar' : 'Cadastrar'}
                 </Styled.CustomLoadingButton>
               </Form.Item>
             </Styled.Row>
