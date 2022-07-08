@@ -103,7 +103,6 @@ export const TransactionTile = styled.div`
   &:hover {
     transition: 0.5s;
     background: #f1f1f1;
-    cursor: pointer;
   }
 `;
 
@@ -116,6 +115,12 @@ export const TransactionCreated = styled.div`
   font-weight: 600;
   font-size: 0.8rem;
   color: #c9c9c9;
+
+  user-select: none;
+
+  &:hover {
+    cursor: default;
+  }
 `;
 
 interface TransactionAvatarProps {
@@ -134,6 +139,11 @@ export const TransactionAvatar = styled.div<TransactionAvatarProps>`
   align-items: center;
 
   font-weight: bold;
+  user-select: none;
+
+  &:hover {
+    cursor: default;
+  }
 `;
 
 interface TransactionValueProps {
@@ -143,4 +153,10 @@ export const TransactionValue = styled.div<TransactionValueProps>`
   font-weight: 600;
   font-size: 1rem;
   color: ${({ isGreater }) => (isGreater ? '#33cc95' : '#ff5252')};
+
+  user-select: none;
+
+  &:hover {
+    cursor: default;
+  }
 `;

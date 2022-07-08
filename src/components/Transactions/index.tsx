@@ -91,7 +91,6 @@ const TransactionsComponent = () => {
       <DrawerCustom>
         <Styled.Container>
           <Styled.SearchBox>
-            {/* commented code */}
             <SearchComponent
               getDepositAndWithdrawRefs={getDepositAndWithdrawRefs}
               setPartialBalance={setPartialBalance}
@@ -99,19 +98,9 @@ const TransactionsComponent = () => {
               openModalCreate={openModalCreate}
               selectedTransaction={selectedTransaction}
             />
-            {/* commented code */}
-
-            {/* <Styled.Button onClick={handleSearch}>
-              <Filter size={18} />
-              Buscar
-            </Styled.Button>
-            <Styled.Button onClick={() => openModalCreate(selectedTransaction)}>
-              <Plus size={18} />
-              Novo
-            </Styled.Button> */}
           </Styled.SearchBox>
 
-          {partialBalance && (
+          {partialBalance && transactions.length > 0 && (
             <PartialBalance
               deposit={depositRef.current}
               withdraw={withdrawRef.current}

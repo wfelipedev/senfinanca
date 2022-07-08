@@ -58,9 +58,14 @@ const DashboardComponent = ({ balance }: IDashboardComponentProps) => {
               <div style={{ padding: '0 1rem' }}>
                 <Divider />
                 {transactions &&
-                  transactions.map((item) => (
-                    <TransactionTile key={item.createdAt} transaction={item} />
-                  ))}
+                  transactions
+                    .slice(0, 5)
+                    .map((item) => (
+                      <TransactionTile
+                        key={item.createdAt}
+                        transaction={item}
+                      />
+                    ))}
               </div>
             </Styled.Box>
           </Styled.Tile>
